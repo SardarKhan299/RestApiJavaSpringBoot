@@ -29,6 +29,16 @@ public class AppEntryController {
         listOfEntries.put(entry.getId(),entry);
     }
 
+    @DeleteMapping("/id/{myId}")
+    public JournalEntity deleteEntryById(@PathVariable long myId){
+        return listOfEntries.remove(myId);
+    }
+
+    @PutMapping("/id/{myId}")
+    public JournalEntity updateGeneral(@PathVariable long myId, @RequestBody JournalEntity entry){
+        return listOfEntries.put(myId,entry);
+    }
+
 
 
 }

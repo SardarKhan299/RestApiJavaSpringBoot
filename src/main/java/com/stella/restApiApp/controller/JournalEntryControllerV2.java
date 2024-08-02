@@ -1,6 +1,8 @@
 package com.stella.restApiApp.controller;
 
 import com.stella.restApiApp.entity.JournalEntity;
+import com.stella.restApiApp.service.JournalEntryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,36 +11,40 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/_journal")
-public class AppEntryController {
+@RequestMapping("/journal")
+public class JournalEntryControllerV2 {
 
-    private Map<String,JournalEntity> listOfEntries = new HashMap<>();
+    @Autowired
+    private JournalEntryService journalEntryService;
 
     @GetMapping("/getAll")
     public List<JournalEntity> getAll(){
-        return new ArrayList<>(listOfEntries.values());
+        return null;
+        //return new ArrayList<>(listOfEntries.values());
     }
 
     @GetMapping("/id/{myId}")
     public JournalEntity getEntryById(@PathVariable long myId){
-        return listOfEntries.get(myId);
+        return null;
+        //return listOfEntries.get(myId);
     }
 
     @PostMapping("/add")
     public void createEntry(@RequestBody JournalEntity entry){
-        listOfEntries.put(entry.getId(),entry);
+        journalEntryService.saveEntry(entry);
     }
 
     @DeleteMapping("/id/{myId}")
     public JournalEntity deleteEntryById(@PathVariable long myId){
-        return listOfEntries.remove(myId);
+        return null;
+        //return listOfEntries.remove(myId);
     }
 
     @PutMapping("/id/{myId}")
-    public JournalEntity updateGeneral(@PathVariable String myId, @RequestBody JournalEntity entry){
-        return listOfEntries.put(myId,entry);
+    public JournalEntity updateGeneral(@PathVariable long myId, @RequestBody JournalEntity entry){
+        return null;
+        //return listOfEntries.put(myId,entry);
     }
-
 
 
 }

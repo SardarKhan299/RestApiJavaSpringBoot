@@ -35,9 +35,16 @@ public class JournalEntryControllerV2 {
     }
 
     @PostMapping("/add")
-    public JournalEntity createEntry(@RequestBody JournalEntity entry){
-        entry.setDate(LocalDateTime.now());
-        return journalEntryService.saveEntry(entry);
+    public ResponseEntity<JournalEntity> createEntry(@RequestBody JournalEntity entry){
+        try {
+            entry.setDate(LocalDateTime.now());
+            journalEntryService.saveEntry(entry);
+            return new ResponseEntity<>(entry, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
     @DeleteMapping("/id/{myId}")

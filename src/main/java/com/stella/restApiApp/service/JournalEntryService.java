@@ -4,7 +4,6 @@ import com.stella.restApiApp.entity.JournalEntity;
 import com.stella.restApiApp.repository.JournalEntryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,8 +13,9 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepo journalEntryRepo;
 
-    public void saveEntry(JournalEntity journalEntity){
+    public JournalEntity saveEntry(JournalEntity journalEntity){
         journalEntryRepo.save(journalEntity);
+        return journalEntity;
     }
 
     public List<JournalEntity> getAllEntries(){

@@ -1,6 +1,7 @@
 package com.stella.restApiApp.controller;
 
 import com.stella.restApiApp.entity.JournalEntity;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Map;
 @RequestMapping("/_journal")
 public class AppEntryController {
 
-    private Map<String,JournalEntity> listOfEntries = new HashMap<>();
+    private Map<ObjectId,JournalEntity> listOfEntries = new HashMap<>();
 
     @GetMapping("/getAll")
     public List<JournalEntity> getAll(){
@@ -35,7 +36,7 @@ public class AppEntryController {
     }
 
     @PutMapping("/id/{myId}")
-    public JournalEntity updateGeneral(@PathVariable String myId, @RequestBody JournalEntity entry){
+    public JournalEntity updateGeneral(@PathVariable ObjectId myId, @RequestBody JournalEntity entry){
         return listOfEntries.put(myId,entry);
     }
 

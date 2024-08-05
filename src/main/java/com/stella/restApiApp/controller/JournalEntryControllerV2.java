@@ -19,8 +19,7 @@ public class JournalEntryControllerV2 {
 
     @GetMapping("/getAll")
     public List<JournalEntity> getAll(){
-        return null;
-        //return new ArrayList<>(listOfEntries.values());
+        return journalEntryService.getAllEntries();
     }
 
     @GetMapping("/id/{myId}")

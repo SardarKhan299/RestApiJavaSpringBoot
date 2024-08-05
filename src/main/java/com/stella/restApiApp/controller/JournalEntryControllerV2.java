@@ -20,8 +20,13 @@ public class JournalEntryControllerV2 {
     private JournalEntryService journalEntryService;
 
     @GetMapping("/getAll")
-    public List<JournalEntity> getAll(){
-        return journalEntryService.getAllEntries();
+    public ResponseEntity<?> getAll(){
+        List<JournalEntity> allEntries = journalEntryService.getAllEntries();
+        if(allEntries!=null && !allEntries.isEmpty()){
+            return new ResponseEntity<>(allEntries,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(allEntries,HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/id/{myId}")
@@ -54,15 +59,19 @@ public class JournalEntryControllerV2 {
     }
 
     @PutMapping("/id/{myId}")
-    public JournalEntity updateGeneral(@PathVariable ObjectId myId, @RequestBody JournalEntity newEntry){
+    public ResponseEntity<JournalEntity> updateGeneral(@PathVariable ObjectId myId, @RequestBody JournalEntity newEntry){
         JournalEntity oldEntity = journalEntryService.findById(myId).orElse(null);
         if(oldEntity!=null){
             oldEntity.setTitle(newEntry.getTitle()!=null && !newEntry.getTitle().isEmpty()
                     ?newEntry.getTitle():oldEntity.getTitle());
             oldEntity.setContent(newEntry.getContent()!=null && !newEntry.getContent().isEmpty()
                     ?newEntry.getContent():oldEntity.getContent());
+            journalEntryService.saveEntry(oldEntity);
+            return new ResponseEntity<>(oldEntity, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return journalEntryService.saveEntry(oldEntity);
+
 
     }
 

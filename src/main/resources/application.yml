@@ -1,0 +1,18 @@
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: restApiApp
+  data:
+    mongodb:
+      uri: mongodb+srv://dbUser:mongodb123@diarydb.vqx5zlv.mongodb.net/?retryWrites=true&w=majority&appName=DiaryDb
+      database: journaldb
+      auto-index-creation: true
+      authentication-database: admin
+
+server:
+  port: 8080
+  servlet:
+    context-path: /journal
+
